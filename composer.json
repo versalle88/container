@@ -1,0 +1,25 @@
+{
+    "name": "versalle/container",
+    "description": "A PSR-11: Container interface implementation library",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrew Versalle",
+            "email": "andrew.versalle@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "7.2.* || 7.3.* || 7.4.*"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+    },
+    "config": {
+        "platform": {
+            "php": "7.2.24"
+        },
+        "sort-packages": true
+    }
+}
