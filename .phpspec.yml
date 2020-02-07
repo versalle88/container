@@ -1,0 +1,5 @@
+suites:
+  default:
+    spec_path: tests
+    namespace: Versalle\Container
+    psr4_prefix: Versalle\Container
