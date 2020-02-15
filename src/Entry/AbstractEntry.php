@@ -8,6 +8,8 @@ namespace Versalle\Container\Entry;
  * Class AbstractEntry
  *
  * @SuppressWarnings(PHPMD.ShortVariable)
+ *
+ * @noinspection PhpUnused
  */
 abstract class AbstractEntry
 {
