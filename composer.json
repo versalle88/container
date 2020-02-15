@@ -19,6 +19,9 @@
         "vimeo/psalm": "^3.8"
     },
     "autoload": {
+        "psr-4": {
+            "Versalle\\Container\\": "src/"
+        }
     },
     "config": {
         "platform": {
