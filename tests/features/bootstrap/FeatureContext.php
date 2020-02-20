@@ -5,6 +5,7 @@ use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use PHPUnit\Framework\Assert;
+use Test\Client;
 use Versalle\Container\Container;
 
 /**
@@ -13,14 +14,14 @@ use Versalle\Container\Container;
 class FeatureContext implements Context
 {
     private $objectEntries = [
-        'KnownClass' => [
-
-        ]
+        'KnownClass' => Client::class,
     ];
 
     private $container;
 
     private $result1;
+
+    private $result2;
 
     /**
      * Initializes context.
@@ -85,19 +86,26 @@ class FeatureContext implements Context
     }
 
     /**
-     * @When I get the entry :arg1 from the Container
+     * @When I get the entry :id from the Container
      */
-    public function iGetTheEntryFromTheContainer($arg1)
+    public function iGetTheEntryFromTheContainer($id)
     {
-        throw new PendingException();
+        try {
+            $this->result1 = $this->container->get($id);
+        } catch (Exception $e) {
+            $this->result1 = $e;
+        }
     }
 
     /**
-     * @Then I should get the object :arg1 as the result
+     * @Then I should get the object :class as the result
      */
-    public function iShouldGetTheObjectAsTheResult($arg1)
+    public function iShouldGetTheObjectAsTheResult($class)
     {
-        throw new PendingException();
+        Assert::assertInstanceOf(
+            $class,
+            $this->result1
+        );
     }
 
     /**
@@ -105,15 +113,19 @@ class FeatureContext implements Context
      */
     public function iShouldGetAnExceptionAsTheResult()
     {
-        throw new PendingException();
+        Assert::assertInstanceOf(
+            Exception::class,
+            $this->result1
+        );
     }
 
     /**
-     * @When I get the entry :arg1 from the Container twice
+     * @When I get the entry :id from the Container twice
      */
-    public function iGetTheEntryFromTheContainerTwice($arg1)
+    public function iGetTheEntryFromTheContainerTwice($id)
     {
-        throw new PendingException();
+        $this->result1 = $this->container->get($id);
+        $this->result2 = $this->container->get($id);
     }
 
     /**
@@ -121,6 +133,9 @@ class FeatureContext implements Context
      */
     public function iShouldGetTheSameObjectAsTheResult()
     {
-        throw new PendingException();
+        Assert::assertSame(
+            $this->result1,
+            $this->result2
+        );
     }
 }
