@@ -4,12 +4,24 @@ use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
+use PHPUnit\Framework\Assert;
+use Versalle\Container\Container;
 
 /**
  * Defines application features from the specific context.
  */
 class FeatureContext implements Context
 {
+    private $objectEntries = [
+        'KnownClass' => [
+
+        ]
+    ];
+
+    private $container;
+
+    private $result1;
+
     /**
      * Initializes context.
      *
@@ -19,22 +31,26 @@ class FeatureContext implements Context
      */
     public function __construct()
     {
+        $this->container = new Container($this->objectEntries);
     }
 
     /**
-     * @Given an entry identifier :arg1 is known to the container
+     * @Given an entry identifier :id is known to the container
      */
-    public function anEntryIdentifierIsKnownToTheContainer($arg1)
+    public function anEntryIdentifierIsKnownToTheContainer($id)
     {
-        throw new PendingException();
+        Assert::assertArrayHasKey(
+            $id,
+            $this->objectEntries
+        );
     }
 
     /**
-     * @When I check if the Container has the entry identifier :arg1
+     * @When I check if the Container has the entry identifier :id
      */
-    public function iCheckIfTheContainerHasTheEntryIdentifier($arg1)
+    public function iCheckIfTheContainerHasTheEntryIdentifier($id)
     {
-        throw new PendingException();
+        $this->result1 = $this->container->has($id);
     }
 
     /**
@@ -42,15 +58,20 @@ class FeatureContext implements Context
      */
     public function iShouldGetTrueAsTheResult()
     {
-        throw new PendingException();
+        Assert::assertTrue(
+            $this->result1
+        );
     }
 
     /**
-     * @Given an entry identifier :arg1 is not known to the container
+     * @Given an entry identifier :id is not known to the container
      */
-    public function anEntryIdentifierIsNotKnownToTheContainer($arg1)
+    public function anEntryIdentifierIsNotKnownToTheContainer($id)
     {
-        throw new PendingException();
+        Assert::assertArrayNotHasKey(
+            $id,
+            $this->objectEntries
+        );
     }
 
     /**
@@ -58,7 +79,9 @@ class FeatureContext implements Context
      */
     public function iShouldGetFalseAsTheResult()
     {
-        throw new PendingException();
+        Assert::assertFalse(
+            $this->result1
+        );
     }
 
     /**
