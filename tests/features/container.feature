@@ -16,7 +16,7 @@ Feature: A PSR-11: Container interface implementation library
   Scenario: Getting a known entry identifier from the container
     Given an entry identifier 'KnownClass' is known to the container
     When I get the entry 'KnownClass' from the Container
-    Then I should get the object 'Test\Dummy\Component' as the result
+    Then I should get the object 'Test\Client' as the result
 
   Scenario: Getting an unknown entry identifier from the container
     Given an entry identifier 'UnknownClass' is not known to the container
