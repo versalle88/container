@@ -25,6 +25,11 @@
             "Versalle\\Container\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "tests/Fixtures/"
+        }
+    },
     "config": {
         "platform": {
             "php": "7.2.24"
