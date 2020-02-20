@@ -5,6 +5,8 @@ namespace spec\Versalle\Container;
 use DateTime;
 use PhpSpec\ObjectBehavior;
 use Psr\Container\ContainerInterface;
+use Test\Client;
+use Test\ClientInterface;
 use Versalle\Container\Container;
 
 /**
@@ -14,9 +16,14 @@ use Versalle\Container\Container;
  */
 class ContainerSpec extends ObjectBehavior
 {
+    private $objectEntries = [
+        'Testing...'           => DateTime::class,
+        ClientInterface::class => Client::class,
+    ];
+
     function let()
     {
-        $this->beConstructedWith(['Testing...' => DateTime::class]);
+        $this->beConstructedWith($this->objectEntries);
     }
 
     function it_is_initializable()
@@ -38,6 +45,12 @@ class ContainerSpec extends ObjectBehavior
     function it_gets_an_object_entry()
     {
         $this->get('Testing...')
+            ->shouldBeObject();
+    }
+
+    function it_gets_a_concrete_implementation_from_an_interface()
+    {
+        $this->get(ClientInterface::class)
             ->shouldBeObject();
     }
 }
