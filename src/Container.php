@@ -24,6 +24,8 @@ final class Container implements ContainerInterface
     {
         $this->objectEntries    = $objectEntries;
         $this->parameterEntries = $parameterEntries;
+
+        $this->share(ContainerInterface::class, $this);
     }
 
     public function get($id)
@@ -49,5 +51,13 @@ final class Container implements ContainerInterface
         $objectEntry = &$this->objectEntries[$id];
 
         return new $objectEntry();
+    }
+
+    public function share($id, $instance): ContainerInterface
+    {
+        $this->objectEntries[$id]   = get_class($instance);
+        $this->objectInstances[$id] = $instance;
+
+        return $this;
     }
 }

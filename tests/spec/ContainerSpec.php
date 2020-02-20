@@ -5,6 +5,7 @@ namespace spec\Versalle\Container;
 use DateTime;
 use PhpSpec\ObjectBehavior;
 use Psr\Container\ContainerInterface;
+use stdClass;
 use Test\Client;
 use Test\ClientInterface;
 use Versalle\Container\Container;
@@ -52,5 +53,19 @@ class ContainerSpec extends ObjectBehavior
     {
         $this->get(ClientInterface::class)
             ->shouldBeObject();
+    }
+
+    function it_shares_object_instances()
+    {
+        $instance = new stdClass();
+
+        $this->share('Instance', $instance)
+            ->shouldBe($this);
+    }
+
+    function it_shares_itself()
+    {
+        $this->get(ContainerInterface::class)
+            ->shouldBe($this);
     }
 }
