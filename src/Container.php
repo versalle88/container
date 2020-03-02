@@ -51,6 +51,13 @@ final class Container implements ContainerInterface
         return isset($this->objectEntries[$id]);
     }
 
+    /**
+     * @param string $id
+     *
+     * @return object
+     *
+     * @throws ContainerException
+     */
     private function createObjectInstance(string $id): object
     {
         $className = $this->resolveClassName($id);
@@ -60,6 +67,13 @@ final class Container implements ContainerInterface
         return $class->newInstanceArgs($args);
     }
 
+    /**
+     * @param string $id
+     *
+     * @return string
+     *
+     * @throws ContainerException
+     */
     private function resolveClassName(string $id): string
     {
         $objectEntry = &$this->objectEntries[$id];
@@ -96,9 +110,17 @@ final class Container implements ContainerInterface
         return $args;
     }
 
+    /**
+     * @param string $className
+     *
+     * @return ReflectionClass
+     *
+     * @throws ContainerException
+     */
     private function reflectClass(string $className): ReflectionClass
     {
         try {
+            /** @psalm-suppress ArgumentTypeCoercion */
             return new ReflectionClass($className);
         } catch (Exception $e) {
             throw ContainerException::reflectionException($e->getMessage(), $e->getCode(), $e);

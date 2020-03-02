@@ -15,26 +15,26 @@ use Throwable;
  */
 class ContainerException extends Exception implements ContainerExceptionInterface
 {
-    public static function invalidFormat(string $id): ContainerExceptionInterface
+    public static function invalidFormat(string $id): ContainerException
     {
         return new static("{$id} object entry must be an array containing a 'class' key");
     }
 
-    public static function classDoesNotExist(string $id, string $className): ContainerExceptionInterface
+    public static function classDoesNotExist(string $id, string $className): ContainerException
     {
         return new static("{$id} object class does not exist: {$className}");
     }
 
-    public static function circularReference(string $id): ContainerExceptionInterface
+    public static function circularReference(string $id): ContainerException
     {
         return new static("{$id} object contains a circular reference");
     }
 
     public static function reflectionException(
         string $message = "",
-        int $code = 0,
+        $code = 0,
         Throwable $previous = null
-    ): ContainerExceptionInterface {
+    ): ContainerException {
         return new static($message, $code, $previous);
     }
 }
