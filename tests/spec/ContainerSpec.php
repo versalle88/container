@@ -8,7 +8,10 @@ use Psr\Container\ContainerInterface;
 use stdClass;
 use Test\Client;
 use Test\ClientInterface;
+use Test\Dependency;
+use Test\Dependent;
 use Versalle\Container\Container;
+use Versalle\Container\Entry\ObjectEntry;
 
 /**
  * Class ContainerSpec
@@ -24,10 +27,20 @@ class ContainerSpec extends ObjectBehavior
         ClientInterface::class => [
             'class' => Client::class,
         ],
+        Dependency::class      => [
+            'class' => Dependency::class,
+        ]
     ];
 
     function let()
     {
+        $this->objectEntries[Dependent::class] = [
+            'class' => Dependent::class,
+            'args'  => [
+                new ObjectEntry(Dependency::class),
+            ]
+        ];
+
         $this->beConstructedWith($this->objectEntries);
     }
 
@@ -71,5 +84,11 @@ class ContainerSpec extends ObjectBehavior
     {
         $this->get(ContainerInterface::class)
             ->shouldBe($this);
+    }
+
+    function it_resolves_args()
+    {
+        $this->get(Dependent::class)
+            ->shouldBeObject();
     }
 }

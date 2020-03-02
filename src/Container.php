@@ -83,6 +83,8 @@ final class Container implements ContainerInterface
                     $id = $arg->getId();
 
                     $args[] = $this->get($id);
+                } else {
+                    $args[] = $arg;
                 }
             }
         }
