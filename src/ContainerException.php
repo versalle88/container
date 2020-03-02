@@ -25,6 +25,11 @@ class ContainerException extends Exception implements ContainerExceptionInterfac
         return new static("{$id} object class does not exist: {$className}");
     }
 
+    public static function circularReference(string $id): ContainerExceptionInterface
+    {
+        return new static("{$id} object contains a circular reference");
+    }
+
     public static function reflectionException(
         string $message = "",
         int $code = 0,

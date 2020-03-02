@@ -68,7 +68,11 @@ final class Container implements ContainerInterface
             throw ContainerException::invalidFormat($id);
         } elseif (!class_exists($objectEntry['class'])) {
             throw ContainerException::classDoesNotExist($id, $objectEntry['class']);
+        } elseif (isset($objectEntry['lock'])) {
+            throw ContainerException::circularReference($id);
         }
+
+        $objectEntry['lock'] = true;
 
         return $objectEntry['class'];
     }
