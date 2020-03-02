@@ -1,11 +1,19 @@
 language: php
+
 php:
   - '7.2'
   - '7.3'
   - '7.4'
+
+env:
+  matrix:
+    - PREFER_LOWEST="--prefer-lowest --prefer-stable"
+    - PREFER_LOWEST=""
+
 before_script:
-  - composer self-update
-  - composer install --prefer-source --no-interaction
+  - composer update $PREFER_LOWEST
+  - composer validate --no-check-all --strict
+
 script:
   - vendor/bin/behat
   - vendor/bin/phpspec run
