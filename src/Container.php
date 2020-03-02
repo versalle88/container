@@ -31,7 +31,7 @@ final class Container implements ContainerInterface
     public function get($id)
     {
         if (!$this->has($id)) {
-            throw new ObjectNotFoundException("Object not found: {$id}");
+            throw ObjectNotFoundException::create($id);
         }
 
         if (!isset($this->objectInstances[$id])) {
