@@ -1,10 +1,15 @@
 <?php
 
+/** @noinspection PhpUndefinedClassInspection */
+
 declare(strict_types=1);
 
 namespace Versalle\Container;
 
+use Exception;
 use Psr\Container\ContainerInterface;
+use ReflectionClass;
+use Versalle\Container\Entry\ObjectEntry;
 use Versalle\Container\Exception\ObjectNotFoundException;
 
 /**
@@ -49,8 +54,10 @@ final class Container implements ContainerInterface
     private function createObjectInstance(string $id): object
     {
         $className = $this->resolveClassName($id);
+        $args      = $this->resolveArgs($id);
+        $class     = $this->reflectClass($className);
 
-        return new $className();
+        return $class->newInstanceArgs($args);
     }
 
     private function resolveClassName(string $id): string
@@ -64,6 +71,32 @@ final class Container implements ContainerInterface
         }
 
         return $objectEntry['class'];
+    }
+
+    private function resolveArgs(string $id): array
+    {
+        $args = [];
+
+        if (isset($this->objectEntries[$id]['args'])) {
+            foreach ($this->objectEntries[$id]['args'] as $arg) {
+                if ($arg instanceof ObjectEntry) {
+                    $id = $arg->getId();
+
+                    $args[] = $this->get($id);
+                }
+            }
+        }
+
+        return $args;
+    }
+
+    private function reflectClass(string $className): ReflectionClass
+    {
+        try {
+            return new ReflectionClass($className);
+        } catch (Exception $e) {
+            throw ContainerException::reflectionException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 
     public function share($id, $instance): ContainerInterface

@@ -6,6 +6,7 @@ namespace Versalle\Container;
 
 use Exception;
 use Psr\Container\ContainerExceptionInterface;
+use Throwable;
 
 /**
  * Class ContainerException
@@ -22,5 +23,13 @@ class ContainerException extends Exception implements ContainerExceptionInterfac
     public static function classDoesNotExist(string $id, string $className): ContainerExceptionInterface
     {
         return new static("{$id} object class does not exist: {$className}");
+    }
+
+    public static function reflectionException(
+        string $message = "",
+        int $code = 0,
+        Throwable $previous = null
+    ): ContainerExceptionInterface {
+        return new static($message, $code, $previous);
     }
 }
