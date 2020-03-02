@@ -1,9 +1,6 @@
 <?php
 
-use Behat\Behat\Tester\Exception\PendingException;
 use Behat\Behat\Context\Context;
-use Behat\Gherkin\Node\PyStringNode;
-use Behat\Gherkin\Node\TableNode;
 use PHPUnit\Framework\Assert;
 use Test\Client;
 use Versalle\Container\Container;
@@ -14,7 +11,9 @@ use Versalle\Container\Container;
 class FeatureContext implements Context
 {
     private $objectEntries = [
-        'KnownClass' => Client::class,
+        'KnownClass' => [
+            'class' => Client::class,
+        ],
     ];
 
     private $container;

@@ -48,9 +48,22 @@ final class Container implements ContainerInterface
 
     private function createObjectInstance(string $id): object
     {
+        $className = $this->resolveClassName($id);
+
+        return new $className();
+    }
+
+    private function resolveClassName(string $id): string
+    {
         $objectEntry = &$this->objectEntries[$id];
 
-        return new $objectEntry();
+        if (!is_array($objectEntry) || !isset($objectEntry['class'])) {
+            throw ContainerException::invalidFormat($id);
+        } elseif (!class_exists($objectEntry['class'])) {
+            throw ContainerException::classDoesNotExist($id, $objectEntry['class']);
+        }
+
+        return $objectEntry['class'];
     }
 
     public function share($id, $instance): ContainerInterface

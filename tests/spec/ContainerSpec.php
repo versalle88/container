@@ -18,8 +18,12 @@ use Versalle\Container\Container;
 class ContainerSpec extends ObjectBehavior
 {
     private $objectEntries = [
-        'Testing...'           => DateTime::class,
-        ClientInterface::class => Client::class,
+        'Testing...'           => [
+            'class' => DateTime::class,
+        ],
+        ClientInterface::class => [
+            'class' => Client::class,
+        ],
     ];
 
     function let()
