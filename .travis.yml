@@ -5,13 +5,9 @@ php:
   - '7.3'
   - '7.4'
 
-env:
-  matrix:
-    - PREFER_LOWEST="--prefer-lowest --prefer-stable"
-    - PREFER_LOWEST=""
-
 before_script:
-  - composer update $PREFER_LOWEST
+  - phpenv config-rm xdebug.ini
+  - composer install
   - composer validate --no-check-all --strict
 
 script:
