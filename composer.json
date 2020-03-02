@@ -20,6 +20,9 @@
         "roave/security-advisories": "dev-master",
         "vimeo/psalm": "^3.8"
     },
+    "provide": {
+        "psr/container-implementation": "1.0.0"
+    },
     "autoload": {
         "psr-4": {
             "Versalle\\Container\\": "src/"
