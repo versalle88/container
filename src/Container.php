@@ -10,6 +10,7 @@ use Exception;
 use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use Versalle\Container\Entry\ObjectEntry;
+use Versalle\Container\Entry\ParameterEntry;
 use Versalle\Container\Exception\ObjectNotFoundException;
 use Versalle\Container\Exception\ParameterNotFoundException;
 
@@ -94,6 +95,13 @@ final class Container implements ContainerInterface
         return $objectEntry['class'];
     }
 
+    /**
+     * @param string $id
+     *
+     * @return array
+     *
+     * @throws ParameterNotFoundException
+     */
     private function resolveArgs(string $id): array
     {
         $args = [];
@@ -104,6 +112,10 @@ final class Container implements ContainerInterface
                     $id = $arg->getId();
 
                     $args[] = $this->get($id);
+                } elseif ($arg instanceof ParameterEntry) {
+                    $id = $arg->getId();
+
+                    $args[] = $this->getParameter($id);
                 } else {
                     $args[] = $arg;
                 }
