@@ -32,6 +32,8 @@ class ContainerSpec extends ObjectBehavior
         ]
     ];
 
+    private $parameterEntries = [];
+
     function let()
     {
         $this->objectEntries[Dependent::class] = [
@@ -40,8 +42,15 @@ class ContainerSpec extends ObjectBehavior
                 new ObjectEntry(Dependency::class),
             ]
         ];
+        $this->parameterEntries                = [
+            'php' => [
+                'superglobals' => [
+                    'server' => $_SERVER,
+                ]
+            ]
+        ];
 
-        $this->beConstructedWith($this->objectEntries);
+        $this->beConstructedWith($this->objectEntries, $this->parameterEntries);
     }
 
     function it_is_initializable()
