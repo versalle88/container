@@ -11,6 +11,7 @@ use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use Versalle\Container\Entry\ObjectEntry;
 use Versalle\Container\Exception\ObjectNotFoundException;
+use Versalle\Container\Exception\ParameterNotFoundException;
 
 /**
  * Class Container
@@ -24,6 +25,8 @@ final class Container implements ContainerInterface
     private $parameterEntries = [];
 
     private $objectInstances = [];
+
+    private const PARAMETER_DELIMITER = '.';
 
     public function __construct(array $objectEntries = [], array $parameterEntries = [])
     {
@@ -133,5 +136,28 @@ final class Container implements ContainerInterface
         $this->objectInstances[$id] = $instance;
 
         return $this;
+    }
+
+    /**
+     * @param string $id
+     *
+     * @return array|mixed
+     *
+     * @throws ParameterNotFoundException
+     */
+    public function getParameter(string $id)
+    {
+        $pieces    = explode(self::PARAMETER_DELIMITER, $id);
+        $parameter = $this->parameterEntries;
+
+        foreach ($pieces as $piece) {
+            if (!isset($parameter[$piece])) {
+                throw ParameterNotFoundException::create($id);
+            }
+
+            $parameter = $parameter[$piece];
+        }
+
+        return $parameter;
     }
 }

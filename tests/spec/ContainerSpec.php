@@ -100,4 +100,10 @@ class ContainerSpec extends ObjectBehavior
         $this->get(Dependent::class)
             ->shouldBeObject();
     }
+
+    function it_gets_parameters()
+    {
+        $this->getParameter('php.superglobals.server')
+            ->shouldBeArray();
+    }
 }
