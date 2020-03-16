@@ -37,9 +37,7 @@ TODO
 ## Testing
 
 ``` bash
-$ vendor/bin/behat
-$ vendor/bin/phpspec run
-$ vendor/bin/psalm
+$ composer tests
 ```
 
 ## Contributing
