@@ -37,7 +37,7 @@ TODO
 ## Testing
 
 ``` bash
-$ composer tests
+$ composer test
 ```
 
 ## Contributing
