@@ -40,10 +40,10 @@
         "sort-packages": true
     },
     "scripts": {
-        "tests": [
-            "vendor\\bin\\behat",
-            "vendor\\bin\\phpspec run",
-            "vendor\\bin\\psalm"
+        "test": [
+            "behat",
+            "phpspec run",
+            "psalm"
         ]
     }
 }
