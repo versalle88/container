@@ -1,6 +1,6 @@
 <?php
 
-/** @noinspection PhpUndefinedClassInspection */
+/** @noinspection PhpUnusedFieldDefaultValueInspection */
 
 declare(strict_types=1);
 
@@ -21,10 +21,25 @@ use Versalle\Container\Exception\ParameterNotFoundException;
  */
 final class Container implements ContainerInterface
 {
+    /**
+     * Object entry definitions
+     *
+     * @var array
+     */
     private $objectEntries = [];
 
+    /**
+     * Parameter entry definitions
+     *
+     * @var array
+     */
     private $parameterEntries = [];
 
+    /**
+     * Instantiated object instances
+     *
+     * @var array
+     */
     private $objectInstances = [];
 
     private const PARAMETER_DELIMITER = '.';
