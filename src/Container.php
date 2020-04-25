@@ -157,7 +157,7 @@ final class Container implements ContainerInterface
         }
     }
 
-    public function share($id, $instance): ContainerInterface
+    public function share(string $id, object $instance): ContainerInterface
     {
         $this->objectEntries[$id]   = get_class($instance);
         $this->objectInstances[$id] = $instance;
