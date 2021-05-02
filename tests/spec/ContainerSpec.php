@@ -29,7 +29,7 @@ class ContainerSpec extends ObjectBehavior
         ],
         Dependency::class      => [
             'class' => Dependency::class,
-        ]
+        ],
     ];
 
     private $parameterEntries = [];
@@ -40,14 +40,14 @@ class ContainerSpec extends ObjectBehavior
             'class' => Dependent::class,
             'args'  => [
                 new ObjectEntry(Dependency::class),
-            ]
+            ],
         ];
         $this->parameterEntries                = [
             'php' => [
                 'superglobals' => [
                     'server' => $_SERVER,
-                ]
-            ]
+                ],
+            ],
         ];
 
         $this->beConstructedWith($this->objectEntries, $this->parameterEntries);
@@ -72,13 +72,13 @@ class ContainerSpec extends ObjectBehavior
     function it_gets_an_object_entry()
     {
         $this->get('Testing...')
-            ->shouldBeObject();
+            ->shouldReturnAnInstanceOf(DateTime::class);
     }
 
     function it_gets_a_concrete_implementation_from_an_interface()
     {
         $this->get(ClientInterface::class)
-            ->shouldBeObject();
+            ->shouldReturnAnInstanceOf(Client::class);
     }
 
     function it_shares_object_instances()
@@ -98,7 +98,7 @@ class ContainerSpec extends ObjectBehavior
     function it_resolves_args()
     {
         $this->get(Dependent::class)
-            ->shouldBeObject();
+            ->shouldReturnAnInstanceOf(Dependent::class);
     }
 
     function it_gets_parameters()
