@@ -41,9 +41,12 @@
     },
     "scripts": {
         "test": [
-            "behat",
-            "phpspec run",
-            "psalm"
-        ]
+            "@behat",
+            "@phpspec",
+            "@psalm"
+        ],
+        "behat": "behat",
+        "phpspec": "phpspec run",
+        "psalm": "psalm"
     }
 }
