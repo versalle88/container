@@ -7,12 +7,12 @@ php:
   - '8.0'
 
 env:
-  - COMPOSER_INSTALL_OPTIONS="--prefer-lowest --prefer-stable"
-  - COMPOSER_INSTALL_OPTIONS=""
+  - COMPOSER_UPDATE_OPTIONS="--prefer-lowest --prefer-stable"
+  - COMPOSER_UPDATE_OPTIONS=""
 
 before_script:
   - phpenv config-rm xdebug.ini
-  - composer install ${COMPOSER_INSTALL_OPTIONS}
+  - composer update ${COMPOSER_UPDATE_OPTIONS}
 
 script:
   - composer validate --no-check-all --strict
