@@ -15,7 +15,7 @@
     },
     "require-dev": {
         "behat/behat": "^3.0",
-        "phpspec/phpspec": "^6.1.0",
+        "phpspec/phpspec": "^6.3.0",
         "phpunit/phpunit": "^6.0 || ^7.0 || ^8.0",
         "roave/security-advisories": "dev-master",
         "vimeo/psalm": "^3.11.0 || ^4.0"

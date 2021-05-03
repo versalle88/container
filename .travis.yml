@@ -7,8 +7,8 @@ php:
   - '8.0'
 
 env:
-  - COMPOSER_UPDATE_OPTIONS="--prefer-lowest --prefer-stable"
-  - COMPOSER_UPDATE_OPTIONS=""
+  - COMPOSER_UPDATE_OPTIONS="--prefer-lowest --prefer-stable --no-progress"
+  - COMPOSER_UPDATE_OPTIONS="--no-progress"
 
 before_script:
   - phpenv config-rm xdebug.ini
