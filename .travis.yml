@@ -4,13 +4,18 @@ php:
   - '7.2'
   - '7.3'
   - '7.4'
+  - '8.0'
+
+env:
+  - COMPOSER_UPDATE_OPTIONS="--prefer-lowest --prefer-stable --no-progress"
+  - COMPOSER_UPDATE_OPTIONS="--no-progress"
 
 before_script:
   - phpenv config-rm xdebug.ini
-  - composer install
-  - composer validate --no-check-all --strict
+  - composer update ${COMPOSER_UPDATE_OPTIONS}
 
 script:
+  - composer validate --no-check-all --strict
   - vendor/bin/behat
   - vendor/bin/phpspec run
   - vendor/bin/psalm
